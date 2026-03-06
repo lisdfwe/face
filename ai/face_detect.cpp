@@ -190,3 +190,8 @@ int face_detect(unsigned char* rgba, int lcd_w, int lcd_h)
 
     return face_count;
 }
+void face_deinit(void)
+{
+    net.clear(); // 释放ncnn模型资源
+    printf("AI model deinit success\n");
+}

@@ -5,9 +5,29 @@
 extern "C" {
 #endif
 
-int fb_init(void);
-void fb_display_fullscreen(void *rgb_data, int src_w, int src_h);
-void fb_deinit(void);
+#include <stdint.h>
+
+typedef enum {
+
+    STATE_IDLE = 0,
+    STATE_RUNNING,
+    STATE_EXIT
+
+} SystemState;
+
+int fb_touch_init();
+
+void fb_touch_deinit();
+
+int read_touch_coords(int *x, int *y);
+
+SystemState check_touch_event(int x, int y, SystemState state);
+
+void fb_display_ui(uint8_t *rgb,
+                   int w,
+                   int h,
+                   SystemState state);
+void fb_clear_screen(uint32_t color);
 
 #ifdef __cplusplus
 }
