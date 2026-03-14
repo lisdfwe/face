@@ -6,7 +6,8 @@ CC  = $(CROSS_COMPILE)gcc
 SRCS = main.cpp
 OBJS = $(SRCS:.cpp=.o)
 
-ALL_OBJS = $(OBJS) ../media/v4l2_camera.o ../ui/fb_display.o ../ai/face_detect.o
+# 确保其他模块的路径正确
+ALL_OBJS = $(OBJS) ../media/v4l2_camera.o ../ui/fb_display.o ../ai/face_detect.o 
 
 NCNN_DIR = ../third_party/ncnn
 

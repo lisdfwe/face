@@ -163,34 +163,6 @@ if (ioctl(fd, VIDIOC_S_PARM, &parm) < 0) {
     return 0;
 }
 
-/* ================= 获取帧 ================= */
-
-// int v4l2_get_frame(void **data, int *index)
-// {
-//     struct v4l2_buffer buf;
-//     memset(&buf, 0, sizeof(buf));
-
-//     buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-//     buf.memory = V4L2_MEMORY_MMAP;
-
-//     if (ioctl(fd, VIDIOC_DQBUF, &buf) < 0) {
-//         if (errno == EAGAIN)
-//             return -1;
-//         perror("VIDIOC_DQBUF");
-//         return -1;
-//     }
-
-//     *index = buf.index;
-
-//     unsigned char *jpeg_data = buffers[buf.index].start;
-//     int jpeg_size = buf.bytesused;
-
-//     mjpeg_to_rgb32(jpeg_data, jpeg_size);
-
-//     *data = rgb_buffer;
-
-//     return 0;
-// }
 
 int v4l2_get_frame(void **data, int *index,int *size)
 {
