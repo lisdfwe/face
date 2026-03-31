@@ -1,0 +1,60 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "fsl,imx6ull-14x14-evk", "fsl,imx6ull";
+
+    fragment@0 {
+        target = &i2c1;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            status = "okay";
+
+            ov5640: camera@3c {
+                compatible = "ovti,ov5640";
+                reg = <0x3c>;
+                clocks = <&clks IMX6UL_CLK_CSI>;
+                reset-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>; /* 根据原理图修改 */
+                powerdown-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
+                
+                port {
+                    ov5640_ep: endpoint {
+                        remote-endpoint = <&csi1_ep>;
+                        bus-width = <8>;
+                        hsync-active = <1>; /* 1: Active High */
+                        vsync-active = <1>; /* 1: Active High */
+                        data-active = <1>;  /* 1: Active High */
+                        pclk-sample = <1>;  /* 1: Rising Edge */
+                    };
+                };
+            };
+        };
+    };
+
+    fragment@1 {
+        target = &csi1;
+        __overlay__ {
+            status = "okay";
+            port {
+                csi1_ep: endpoint {
+                    remote-endpoint = <&ov5640_ep>;
+                    bus-width = <8>;
+                };
+            };
+        };
+    };
+    
+    fragment@2 {
+        target = @&gpio5; /* 假设电机在 GPIO5 */
+        __overlay__ {
+            motor_ctrl: motor {
+                compatible = "face,motor";
+                gpios = <&gpio5 0 GPIO_ACTIVE_HIGH>,
+                        <&gpio5 1 GPIO_ACTIVE_HIGH>,
+                        <&gpio5 2 GPIO_ACTIVE_HIGH>,
+                        <&gpio5 3 GPIO_ACTIVE_HIGH>;
+            };
+        };
+    };
+};

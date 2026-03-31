@@ -1,1 +1,0 @@
-cmd_/home/book/nfs_rootfs/imx6_face_security/drivers/motor_driver.ko := arm-buildroot-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/book/nfs_rootfs/imx6_face_security/drivers/motor_driver.ko /home/book/nfs_rootfs/imx6_face_security/drivers/motor_driver.o /home/book/nfs_rootfs/imx6_face_security/drivers/motor_driver.mod.o ;  true
